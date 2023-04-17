@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class ClienteController extends Controller
 {
     public function registroUsuario(Request $request){
         $request->validate([
             'name' => 'required|string',
-            'usuario' => 'required|'
-            'email' => 'required|string|email|unique:users',
+            'user' => 'required|unique:users',
+            'email' => 'required|string|email',
             'password' => 'required|string'
         ]);
 
@@ -30,9 +33,9 @@ class ClienteController extends Controller
     public function inicioSesion(Request $request){
         //valida la entrada de datos al servidor
 
-        if($request->email){
+        if($request->user){
             $datos = $request->validate([
-                'email' => 'required|string|email',
+                'user' => 'required|string|user',
                 'password' => 'required|string'
             ]);
         }else{
